@@ -1,0 +1,19 @@
+{
+  "name": "line_chat",
+  "version": "1.0.0",
+  "description": "To start your Phoenix server:",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "playwright": "^1.54.2"
+  }
+}

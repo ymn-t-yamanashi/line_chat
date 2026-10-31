@@ -1,0 +1,399 @@
+/* LineChat: LINE-style chat UI. Plain CSS so esbuild can build it without a
+   Tailwind package — the accent colour is LINE's green (#06c755). */
+
+:root {
+  --accent: #06c755;
+  --accent-dark: #00a344;
+  --ink: #232323;
+  --muted: #7a7a7a;
+  --chat-bg: #d7e6ef;
+  --surface: #ffffff;
+  --line: #d9d9d9;
+  --bubble-self: #a2d5ab;
+  --error: #d9534f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #eef1f4;
+  color: var(--ink);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.app-shell {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--surface);
+  min-height: 100vh;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.06);
+}
+
+.screen {
+  padding: 16px 18px 28px;
+}
+
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.screen-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.viewer-note {
+  margin: 2px 0 0;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.field-label {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  background: #fbfbfb;
+}
+
+input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.room-form,
+.rename-form,
+.send-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.room-form > div,
+.rename-form > div,
+.send-form > div {
+  flex: 1;
+}
+
+.room-form input,
+.rename-form input,
+.send-form input {
+  flex: 1;
+}
+
+.primary-button,
+.ghost-button {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: var(--accent);
+  color: #fff;
+}
+
+.primary-button:hover {
+  background: var(--accent-dark);
+}
+
+.ghost-button {
+  background: #fff;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--accent-dark);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.room-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.room-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.room-row-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding: 12px 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.room-row-link:hover {
+  background: #f3f6f8;
+}
+
+.room-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.room-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.room-name {
+  font-weight: 700;
+}
+
+.room-preview {
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.typing {
+  font-size: 12px;
+  color: var(--accent-dark);
+  margin: 0;
+}
+
+.unread-badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-room {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--error);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.delete-room:hover {
+  border-color: var(--error);
+}
+
+.transcript {
+  background: var(--chat-bg);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 10px 0 16px;
+}
+
+.day-group {
+  margin-bottom: 14px;
+}
+
+.day-separator {
+  margin: 12px 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding-bottom: 6px;
+}
+
+.message-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bubble {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 8px 12px;
+  max-width: 62%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.bubble--self {
+  background: var(--bubble-self);
+}
+
+.bubble-author {
+  margin: 0 0 3px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bubble-body {
+  margin: 0;
+  word-break: break-word;
+}
+
+.redacted-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.bubble-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.bubble-time {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.read-state {
+  font-size: 11px;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.redact-button {
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--error);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.redact-button:hover {
+  border-color: var(--error);
+}
+
+.empty-note {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+#flash_group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 18px 0;
+}
+
+.flash {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.flash--info {
+  background: #e6f6ec;
+  color: var(--accent-dark);
+  border: 1px solid var(--accent);
+}
+
+.flash--error {
+  background: #fbe8e6;
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.flash-title {
+  margin: 0 0 2px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+@media (max-width: 620px) {
+  .screen {
+    padding: 12px 12px 24px;
+  }
+
+  .room-form,
+  .rename-form,
+  .send-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bubble {
+    max-width: 80%;
+  }
+}
